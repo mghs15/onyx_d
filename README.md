@@ -1,51 +1,30 @@
 # onyx_d
-�Ƃ肠���������΂����A�����p��un-vector-tile-toolkit/onyx
+とりあえず動けばいい、自分用の[un-vector-tile-toolkit/onyx](https://github.com/un-vector-tile-toolkit/onyx)。
+試作したmbtilesをとりあえず確認するときなどに。
 
-<hr>
+## Setup
 
-# onyx
-A new vector tile server (to take over pietra and spinel)
-
-## background
-I wanted to have a simple, scalable, fast, and interoperable vector tile server as a part of the UN Vector Tile Toolkit. 
-
-## install
-```console
-npm install -g pm2
-git clone git@github.com:un-vector-tile-toolkit/onyx
-cd onyx
+```
 npm install
+
 mkdir config
+mkdir htdocs
+mkdir mbtiles
+mkdir log
+
 vi config/default.hjson
+
+vi app.js
 ```
 
-## an example of config/default.hjson
-```console
-{
-  morganFormat: tiny
-  htdocsPath: htdocs
-  port: 3000
-  privkeyPath: /somewhere/privkey.pem
-  fullchainPath: /somewhere/fullchain.pem
-  chainPath: /somewhere/chain.pem
-  logDirPath: log
-  tz: {
-    tapioca: 6
-  }
-  defaultZ: 6
-  mbtilesDir: /somewhere/mbtiles
-  fontsDir: /somewhere/fonts
-}
-```
+* pm2、spdyは使わない。単に、Node.jsでhttp通信でmbtilesからタイルを配信する。(package.jsonはいじっていないので、npmでspdyは入ってくるが。)
+* mbtilesから返されるpbfタイルはgzip圧縮されているので、`content-encoding: gzip`が必要。
 
-I use \*.pem files from [Let's Encrypt](https://letsencrypt.org/).
+## 元のレポジトリ
 
-## run
-```console
-./pmserve.sh
-```
+https://github.com/un-vector-tile-toolkit/onyx
 
-## stop
-```console
-./pmstop.sh
-```
+## 参考文献
+
+https://nodejs.org/ja/docs/guides/getting-started-guide/
+
